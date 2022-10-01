@@ -6,6 +6,7 @@
             <router-link to="/menuPrincipal" class="nav-link active" aria-current="page">Trabajo integrador MCGA 2022</router-link>
             </li>
         </ul>
+        
     </nav>
     <router-view/>
 </div>
