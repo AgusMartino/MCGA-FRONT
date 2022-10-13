@@ -1,35 +1,37 @@
 <template>
   <div class="container">
     <div class="col">
-      <h3>Listado de usuarios existentes</h3>
-
-      <router-link to="/userRegister" type="button" class="btn btn-secondary">
-        Registrar un nuevo usuario
-      </router-link>
-
-      <input
-        v-model="nombre"
-        class="form-control mt-3 mb-3"
-        id="myInput"
-        type="text"
-        placeholder="Buscar usuario"
-      />
-
+      <h3>Informacion del peaje</h3>
       <table class="table">
         <tr>
-          <th scope="col">Usuario</th>
-          <th scope="col">Documento</th>
-          <th scope="col">Email</th>
-          <th scope="col">Modificar</th>
+          <th scope="col">Detalle</th>
+          <th scope="col">Cantidad</th>
         </tr>
         <tbody id="myTable">
-          <dataTable
-            v-for="user in userfilter"
-            :Usuario="user.Nombre_Usuario"
-            :document = "user.DNI"
-            :Email="user.Email"
-            :Id="user.Id_usuario"
-          />
+          <tr>
+            <td>Total de patentes que pasaron por el peaje</td>
+            <td>{{patentenPasaronPeaje}}</td>
+          </tr>
+          <tr>
+            <td>Total de patentes reconocidas</td>
+            <td>{{patenteReconocidas}}</td>
+          </tr>
+          <tr>
+            <td>Total de patentes no reconocidas</td>
+            <td>{{patentesNoReconocidas}}</td>
+          </tr>
+          <tr>
+            <td>Total de multas emitidas</td>
+            <td>{{multasEmitidas}}</td>
+          </tr>
+          <tr>
+            <td>Total de solicitudes de pago emitidas</td>
+            <td>{{solicitudesDePago}}</td>
+          </tr>
+          <tr>
+            <td>Total facturado</td>
+            <td>{{totalFacturado}}</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -37,19 +39,23 @@
 </template>
 
 <script>
-import dataTable from "../components/dataTableUser.vue"
-import axios from "axios"
+import axios from 'axios'
+import { useRouter } from 'vue-router';
 export default{
     components:{
-        dataTable,
     },
     data() {
         return {
-            entradasJSON: [],
-            loading: false,
-            nombre: null
+            patentenPasaronPeaje: "500",
+            patenteReconocidas: "400",
+            patentesNoReconocidas: "100",
+            multasEmitidas: "100",
+            solicitudesDePago: "400",
+            totalFacturado: "$100.000",
+            loading: false
         };
-    },
+    }
+    /*
     mounted() {
         this.getUsers();
     },
@@ -78,6 +84,7 @@ export default{
                   })
         }
     }
+    */
 }
 </script>
 
