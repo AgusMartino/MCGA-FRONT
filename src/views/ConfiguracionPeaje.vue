@@ -149,7 +149,7 @@ export default{
     align-items: center;
 }
 .row{
-    height: 50px;
+
     align-items: center;
     justify-content: center;
 }

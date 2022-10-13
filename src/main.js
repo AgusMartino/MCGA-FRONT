@@ -22,8 +22,8 @@ const routes = [
         component: () => import('./views/informacionPeaje.vue')
     },
     {
-        path:'/estadoServicios',
-        name:'estadoServicios',
+        path:'/estadoServicio',
+        name:'estadoServicio',
         component: () => import('./views/estadoServicios.vue')
     }
 ]

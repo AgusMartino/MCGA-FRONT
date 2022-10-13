@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row justify-content-center mt-5">
         <div class="col-3">
-            <router-link to="/estadoServicios" type="button" class="btn btn-secondary">Estado de Servicios</router-link>
+            <router-link to="/estadoServicio" type="button" class="btn btn-secondary">Estado de Servicios</router-link>
         </div>
         <div class="col-3">
             <router-link to="/ConfiguracionPeaje" type="button" class="btn btn-secondary">Configuracion de peaje</router-link>

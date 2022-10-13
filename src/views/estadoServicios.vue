@@ -18,8 +18,8 @@
             <tbody id="myTable">
                 <tr>
                     <td>Servicio de reconocimineto</td>
-                    <td><button type="button" class="btn btn-success">Levantar servicio</button></td>
-                    <td><button type="button" class="btn btn-danger">Bajar servicio</button></td>
+                    <td><button type="button" class="btn btn-success" v-on:click="startRecognizeService()">Levantar servicio</button></td>
+                    <td><button type="button" class="btn btn-danger" v-on:click="shutdownRecognizeService()">Bajar servicio</button></td>
                     <td v-if="servicioReconocimiento">
                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked Disabled>
                         <label class="form-check-label" for="flexSwitchCheckChecked">Habilitado</label>
@@ -31,8 +31,8 @@
                 </tr>
                 <tr>
                     <td>Servicio de Solicitud de pago</td>
-                    <td><button type="button" class="btn btn-success">Levantar servicio</button></td>
-                    <td><button type="button" class="btn btn-danger">Bajar servicio</button></td>
+                    <td><button type="button" class="btn btn-success" v-on:click="startPaymentService()">Levantar servicio</button></td>
+                    <td><button type="button" class="btn btn-danger" v-on:click="shutdownPaymentService()">Bajar servicio</button></td>
                     <td v-if="servicioPagos">
                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked Disabled>
                         <label class="form-check-label" for="flexSwitchCheckChecked">Habilitado</label>
@@ -44,8 +44,8 @@
                 </tr>
                 <tr>
                     <td>Servicio de Multas</td>
-                    <td><button type="button" class="btn btn-success">Levantar servicio</button></td>
-                    <td><button type="button" class="btn btn-danger">Bajar servicio</button></td>
+                    <td><button type="button" class="btn btn-success" v-on:click="startFinesService()">Levantar servicio</button></td>
+                    <td><button type="button" class="btn btn-danger" v-on:click="shutdownFinesService()">Bajar servicio</button></td>
                     <td v-if="servicioMultas">
                         <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked Disabled>
                         <label class="form-check-label" for="flexSwitchCheckChecked">Habilitado</label>
@@ -62,26 +62,56 @@
 </template>
 
 <script>
-import dataTable from "../components/dataTablePrivilege.vue"
+import { useRouter } from 'vue-router'
 import axios from "axios"
 export default{
     components:{
-        dataTable
     },
     data() {
         return {
-            entradasJSON: [],
             servicioReconocimiento: true,
             servicioPagos: true,
             servicioMultas: true,
             loading: false
         };
-    }
+    },
     /*
     mounted() {
         this.getPrivilegies();
     },
+    */
     methods: {
+        shutdownRecognizeService(){
+            this.loading = true
+            this.servicioReconocimiento = false
+            this.loading = false
+        },
+        startRecognizeService(){
+            this.loading = true
+            this.servicioReconocimiento = true
+            this.loading = false
+        },
+        shutdownPaymentService(){
+            this.loading = true
+            this.servicioPagos = false
+            this.loading = false
+        },
+        startPaymentService(){
+            this.loading = true
+            this.servicioPagos = true
+            this.loading = false
+        },
+        shutdownFinesService(){
+            this.loading = true,
+            this.servicioMultas = false,
+            this.loading = false
+        },
+        startFinesService(){
+            this.loading = true,
+            this.servicioMultas = true,
+            this.loading = false
+        }
+        /*
         getPrivilegies(){
             this.loading = true
             axios.get("https://localhost:44398/Permission/GetAll")
@@ -112,8 +142,8 @@ export default{
             this.loading = false
             })
         }
-    },
-    */
+        */
+    }
 }
 </script>
 
