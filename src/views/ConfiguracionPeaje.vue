@@ -8,65 +8,53 @@
 <div class="container" v-if="!loading">
     <div class="row">
         <div class="col-4">
-            <h4>Montos a pagar por categoria o tipo de vehiculo:</h4>
+            <h4>Configuracion de solicitudes de pago por categoria o tipo de vehiculo:</h4>
             <div class="row mt-3">
                 <label for="motoPago">
                     <span>Moto:</span>
-                    <input type="text" name="motoPago" id="motoPago" v-model="TipoPeajePago.moto">
+                    <input disabled type="text" name="motoPago" id="motoPago" v-model="TipoPeajePago.moto">
                 </label>
             </div>
             <div class="row mt-3">
                 <label for="autoPago">
                     <span>Auto:</span>
-                    <input type="text" name="autoPago" id="autoPago" v-model="TipoPeajePago.auto">
+                    <input disabled type="text" name="autoPago" id="autoPago" v-model="TipoPeajePago.auto">
                 </label>
             </div>
             <div class="row mt-3">
                 <label for="camionPago">
                     <span>Camion:</span>
-                    <input type="text" name="camionPago" id="camionPago" v-model="TipoPeajePago.camion">
+                    <input disabled type="text" name="camionPago" id="camionPago" v-model="TipoPeajePago.camion">
                 </label>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary" v-on:click="">Modificar</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="modifyPayment()">Modificar</button>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary" v-on:click="">Aplicar cambios</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="applyPayment()">Aplicar cambios</button>
                 </div>
             </div>
             <hr>
         </div>
         <div class="col-4">
-            <h4>Multas por categoria o tipo de vehiculo:</h4>
+            <h4>Configuracion de precio de Multas</h4>
             <div class="row mt-3">
-                <label for="motoMulta">
+                <label for="multa">
                     <span>Moto:</span>
-                    <input type="text" name="motoMulta" id="motoMulta" v-model="TipoPeajeMulta.moto">
-                </label>
-            </div>
-            <div class="row mt-3">
-                <label for="autoMulta">
-                    <span>Auto:</span>
-                    <input type="text" name="autoMulta" id="autoMulta" v-model="TipoPeajeMulta.auto">
-                </label>
-            </div>
-            <div class="row mt-3">
-                <label for="camionMulta">
-                    <span>Camion:</span>
-                    <input type="text" name="camionMulta" id="camionMulta" v-model="TipoPeajeMulta.camion">
+                    <input disabled type="text" name="multa" id="multa" v-model="TipoPeajeMulta">
                 </label>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary" v-on:click="">Modificar</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="modifyFine()">Modificar</button>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary" v-on:click="">Aplicar cambios</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="applyFine()">Aplicar cambios</button>
                 </div>
             </div>
             <hr>
@@ -90,19 +78,42 @@ export default{
                     camion: '400',
                     moto: '400'
                 },
-            TipoPeajeMulta:{
-                    auto: '600',
-                    camion: '700',
-                    moto: '1000'
-                }
+            TipoPeajeMulta: '2000'
         };
     },
-    /*
-    mounted(){
-        this.getUsers()
-    },
-    */
     methods: {
+        modifyPayment(){
+            document.getElementById('motoPago').disabled = false
+            document.getElementById('autoPago').disabled = false
+            document.getElementById('camionPago').disabled = false
+        },
+        modifyFine(){
+            document.getElementById('multa').disabled = false
+        },
+        applyPayment(){
+            const auto = document.getElementById('autoPago')
+            const moto = document.getElementById('motoPago')
+            const camion = document.getElementById('camionPago')
+            this.loading = true
+            this.TipoPeajePago.auto = auto.value
+            this.TipoPeajePago.moto = moto.value
+            this.TipoPeajePago.camion = camion.value
+            document.getElementById('motoPago').disabled = true
+            document.getElementById('autoPago').disabled = true
+            document.getElementById('camionPago').disabled = true
+            this.loading = false
+            console.log(auto.value)
+            console.log(moto.value)
+            console.log(camion.value)
+        },
+        applyFine(){
+            const multa = document.getElementById('multa')
+            this.loading = true
+            this.TipoPeajeMulta = multa.value
+            document.getElementById('multa').disabled = true
+            this.loading = false
+            console.log(multa.value)
+        }
         /*
         getUsers(){
             this.loading = true
@@ -149,8 +160,6 @@ export default{
     align-items: center;
 }
 .row{
-
-    align-items: center;
     justify-content: center;
 }
 span{
