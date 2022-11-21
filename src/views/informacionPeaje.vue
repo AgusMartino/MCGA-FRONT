@@ -10,11 +10,11 @@
         <tbody id="myTable">
           <tr>
             <td>Total de patentes que pasaron por el peaje</td>
-            <td>{{patentenPasaronPeaje}}</td>
+            <td>{{transitoTotal}}</td>
           </tr>
           <tr>
             <td>Total de patentes reconocidas</td>
-            <td>{{patenteReconocidas}}</td>
+            <td>{{patentesReconocidas}}</td>
           </tr>
           <tr>
             <td>Total de patentes no reconocidas</td>
@@ -46,45 +46,88 @@ export default{
     },
     data() {
         return {
-            patentenPasaronPeaje: "500",
-            patenteReconocidas: "400",
-            patentesNoReconocidas: "100",
-            multasEmitidas: "100",
-            solicitudesDePago: "400",
-            totalFacturado: "$100.000",
+            EntradaTransitoTotal: [],
+            transitoTotal: "",
+            EntradaPatentesReconocidas: [],
+            patentesReconocidas: "",
+            EntradaPatentesNoReconocidas: [],
+            patentesNoReconocidas: "",
+            EntradaTotalFacturado: {},
+            totalFacturado: "",
+            multasEmitidas: "",
+            solicitudesDePago: "",
             loading: false
         };
-    }
-    /*
+    },
     mounted() {
-        this.getUsers();
+        this.GetTransitoTotal();
+        this.GetPatentesReconocidas();
+        this.GetPatentesNoReconocidas();
+        this.GetTotalFacturado();
     },
     methods: {
-        getUsers(){
+        GetTransitoTotal(){
             this.loading = true
-            axios.get("https://localhost:44398/User/GetAll")
+            axios.get("https://localhost:44311/Transito/GetTransitoTotal")
             .then(response=>{
-            this.entradasJSON = response.data;
+            this.EntradaTransitoTotal = response.data;
             })
             .catch(err =>{
             alert(err.data)
             })
             .finally(data =>{
             this.loading = false
+            this.transitoTotal = this.EntradaTransitoTotal.length.toString()
+            console.log(this.EntradaTransitoTotal.length.toString())
             })
-        }
-    },
-    computed:{
-        userfilter(){
-                if(!this.nombre)
-                  return this.entradasJSON;
-                else
-                  return this.entradasJSON.filter((data) => {
-                  return !data.Nombre_Usuario.toLowerCase().indexOf((this.nombre.toLowerCase()));
-                  })
-        }
+        },
+        GetPatentesReconocidas(){
+            this.loading = true
+            axios.get("https://localhost:44311/Transito/GetPatentesReconocidas")
+            .then(response=>{
+            this.EntradaPatentesReconocidas = response.data;
+            })
+            .catch(err =>{
+            alert(err.data)
+            })
+            .finally(data =>{
+            this.loading = false
+            this.patentesReconocidas = this.EntradaPatentesReconocidas.length.toString()
+            console.log(this.EntradaPatentesReconocidas.length.toString())
+            })
+        },
+        GetPatentesNoReconocidas(){
+            this.loading = true
+            axios.get("https://localhost:44311/Transito/GetPatentesNoReconocidas")
+            .then(response=>{
+            this.EntradaPatentesNoReconocidas = response.data;
+            })
+            .catch(err =>{
+            alert(err.data)
+            })
+            .finally(data =>{
+            this.loading = false
+            this.patentesNoReconocidas = this.EntradaPatentesNoReconocidas.length.toString()
+            console.log(this.EntradaPatentesNoReconocidas.length.toString())
+            })
+        },
+        GetTotalFacturado(){
+            this.loading = true
+            axios.get("https://localhost:44311/Transito/GetTotalFacturado")
+            .then(response=>{
+            this.EntradaTotalFacturado = response.data;
+            })
+            .catch(err =>{
+            alert(err.data)
+            })
+            .finally(data =>{
+            this.loading = false
+            this.totalFacturado = this.EntradaTotalFacturado.totalFacturadoMonto
+            console.log(this.EntradaTotalFacturado)
+            })
+        },
+
     }
-    */
 }
 </script>
 
