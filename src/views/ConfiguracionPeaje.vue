@@ -12,19 +12,19 @@
             <div class="row mt-3">
                 <label for="motoPago">
                     <span>Moto:</span>
-                    <input disabled type="text" name="motoPago" id="motoPago" v-model="TipoPeajePago.moto">
+                    <input disabled type="text" name="motoPago" id="motoPago" v-model="Moto.value">
                 </label>
             </div>
             <div class="row mt-3">
                 <label for="autoPago">
                     <span>Auto:</span>
-                    <input disabled type="text" name="autoPago" id="autoPago" v-model="TipoPeajePago.auto">
+                    <input disabled type="text" name="autoPago" id="autoPago" v-model="Auto.value">
                 </label>
             </div>
             <div class="row mt-3">
                 <label for="camionPago">
                     <span>Camion:</span>
-                    <input disabled type="text" name="camionPago" id="camionPago" v-model="TipoPeajePago.camion">
+                    <input disabled type="text" name="camionPago" id="camionPago" v-model="Camion.value">
                 </label>
             </div>
             <div class="row mt-3">
@@ -43,8 +43,8 @@
             <h4>Configuracion de precio de Multas</h4>
             <div class="row mt-3">
                 <label for="multa">
-                    <span>Moto:</span>
-                    <input disabled type="text" name="multa" id="multa" v-model="TipoPeajeMulta">
+                    <span>Multa General:</span>
+                    <input disabled type="text" name="multa" id="multa" v-model="Multa.value">
                 </label>
             </div>
             <div class="row mt-3">
@@ -54,7 +54,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col">
-                    <button type="button" class="btn btn-secondary" v-on:click="applyFine()">Aplicar cambios</button>
+                    <button type="button" class="btn btn-secondary" v-on:click="applyFineMulta()">Aplicar cambios</button>
                 </div>
             </div>
             <hr>
@@ -72,14 +72,32 @@ export default{
     },
     data() {
         return {
-            loading: false,
-            TipoPeajePago:{
-                    auto: '400',
-                    camion: '400',
-                    moto: '400'
-                },
-            TipoPeajeMulta: '2000'
+
+            Moto: {
+                id: '54f13da9-b8fe-4fff-919f-d295ec4d55f5',
+                key: 'MOTO',
+                value: ''
+            },
+            Camion: {
+                id: '9407c5f8-5984-4777-aa6c-7b413b7879c3',
+                key: 'CAMION',
+                value: ''
+            },
+            Auto: {
+                id: 'ffe7fec7-5539-40b9-9926-d868b22159d7',
+                key: 'AUTO',
+                value: ''
+            },
+            Multa: {
+                id: 'b2f2581e-39ab-42bf-9b15-b377b40dc6de',
+                key: 'N/A',
+                value: ''
+            },
+            loading: false
         };
+    },
+    mounted(){
+        this.getValues();
     },
     methods: {
         modifyPayment(){
@@ -90,39 +108,95 @@ export default{
         modifyFine(){
             document.getElementById('multa').disabled = false
         },
-        applyPayment(){
-            const auto = document.getElementById('autoPago')
-            const moto = document.getElementById('motoPago')
-            const camion = document.getElementById('camionPago')
+        applyPaymentCamion(){
             this.loading = true
-            this.TipoPeajePago.auto = auto.value
-            this.TipoPeajePago.moto = moto.value
-            this.TipoPeajePago.camion = camion.value
-            document.getElementById('motoPago').disabled = true
-            document.getElementById('autoPago').disabled = true
-            document.getElementById('camionPago').disabled = true
-            this.loading = false
-            console.log(auto.value)
-            console.log(moto.value)
-            console.log(camion.value)
-        },
-        applyFine(){
-            const multa = document.getElementById('multa')
-            this.loading = true
-            this.TipoPeajeMulta = multa.value
-            document.getElementById('multa').disabled = true
-            this.loading = false
-            console.log(multa.value)
-        }
-        /*
-        getUsers(){
-            this.loading = true
-            axios.get("https://localhost:44398/User/GetAll")
-            .then(response=>{
-            response.data.forEach((user) => {
-                if (user.Id_usuario == this.id){
-                    this.user = user
+            axios.put("https://localhost:44311/Transito/PutValorTipoVehiculo?idTipoVehiculo=9407c5f8-5984-4777-aa6c-7b413b7879c3&nuevoValor=" + this.Camion.value)
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Monto de Camion Modificado!');
                 }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
+        },
+        applyPaymentAuto(){
+            this.loading = true
+            axios.put("https://localhost:44311/Transito/PutValorTipoVehiculo?idTipoVehiculo=ffe7fec7-5539-40b9-9926-d868b22159d7&nuevoValor=" + this.Auto.value)
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Monto de Auto Modificado!');
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
+        },
+        applyPaymentMoto(){
+            this.loading = true
+            axios.put("https://localhost:44311/Transito/PutValorTipoVehiculo?idTipoVehiculo=54f13da9-b8fe-4fff-919f-d295ec4d55f5&nuevoValor=" + this.Moto.value)
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Monto de Moto Modificado!');
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
+        },
+        applyFineMulta(){
+            this.loading = true
+            axios.put("https://localhost:44311/Transito/PutValorMulta?nuevoValor=" + this.Multa.value)
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Monto de Multa Modificado!');
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
+        },
+        applyPayment(){
+            this.applyPaymentAuto();
+            this.applyPaymentCamion();
+            this.applyPaymentMoto();
+        },
+        getValues(){
+            this.loading = true
+            axios.get("https://localhost:44311/Transito/GetAllMontosDeVehiculosYMulta")
+            .then(response=>{
+            response.data.forEach((values) => {
+                switch(values.tipo){
+                    case "AUTO":
+                        this.Auto.value = values.valor.toString()
+                        console.log(values.valor.toString())
+                        break;
+                    case "CAMION":
+                        this.Camion.value = values.valor.toString()
+                        console.log(values.valor.toString())
+                        break;
+                    case "MOTO":
+                        this.Moto.value = values.valor.toString()
+                        console.log(values.valor.toString())
+                        break;
+                    case "N/A":
+                        this.Multa.value = values.valor.toString()
+                        console.log(values.valor.toString())
+                        break;
+                }
+            
             });
             })
             .catch(err =>{
@@ -131,26 +205,8 @@ export default{
             .finally(data =>{
             this.loading = false
             })
-        },
-
-        userUpdate(){
-                this.loading = true
-                axios.put("https://localhost:44398/User/Update", this.user)
-                .then(response=> {
-                    if(response.status==200) {
-                    alert('Usuario modificado con exito!');
-                    }
-                })
-                .catch(err =>{
-                    alert(err.Message)
-                })
-                .finally(data =>{
-                this.loading = false
-                })
-            }
-        },
-        */
-    }
+        }
+    },
 }
 </script>
 

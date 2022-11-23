@@ -54,7 +54,9 @@ export default{
             patentesNoReconocidas: "",
             EntradaTotalFacturado: {},
             totalFacturado: "",
+            EntradaMultasEmitidas: [],
             multasEmitidas: "",
+            EntradaSolicitudDePagosEmitidos: [],
             solicitudesDePago: "",
             loading: false
         };
@@ -64,6 +66,8 @@ export default{
         this.GetPatentesReconocidas();
         this.GetPatentesNoReconocidas();
         this.GetTotalFacturado();
+        this.GetPagosEmitidos();
+        this.GetMultasEmitidas();
     },
     methods: {
         GetTransitoTotal(){
@@ -83,7 +87,7 @@ export default{
         },
         GetPatentesReconocidas(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetPatentesReconocidas")
+            axios.get("https://localhost:44311/Transito/GetCantidadVehiculosReconocidos")
             .then(response=>{
             this.EntradaPatentesReconocidas = response.data;
             })
@@ -92,13 +96,13 @@ export default{
             })
             .finally(data =>{
             this.loading = false
-            this.patentesReconocidas = this.EntradaPatentesReconocidas.length.toString()
-            console.log(this.EntradaPatentesReconocidas.length.toString())
+            this.patentesReconocidas = this.EntradaPatentesReconocidas.cantidadVehiculosReconocidos.toString()
+            console.log(this.EntradaPatentesReconocidas.cantidadVehiculosReconocidos.toString())
             })
         },
         GetPatentesNoReconocidas(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetPatentesNoReconocidas")
+            axios.get("https://localhost:44311/Transito/GetCantidadVehiculosNoReconocidos")
             .then(response=>{
             this.EntradaPatentesNoReconocidas = response.data;
             })
@@ -107,8 +111,8 @@ export default{
             })
             .finally(data =>{
             this.loading = false
-            this.patentesNoReconocidas = this.EntradaPatentesNoReconocidas.length.toString()
-            console.log(this.EntradaPatentesNoReconocidas.length.toString())
+            this.patentesNoReconocidas = this.EntradaPatentesNoReconocidas.cantidadVehiculosNoReconocidos.toString()
+            console.log(this.EntradaPatentesNoReconocidas.cantidadVehiculosNoReconocidos.toString())
             })
         },
         GetTotalFacturado(){
@@ -126,6 +130,36 @@ export default{
             console.log(this.EntradaTotalFacturado)
             })
         },
+        GetMultasEmitidas(){
+            this.loading = true
+            axios.get("https://localhost:44311/Transito/GetMultasEmitidas")
+            .then(response=>{
+            this.EntradaMultasEmitidas = response.data;
+            })
+            .catch(err =>{
+            alert(err.data)
+            })
+            .finally(data =>{
+            this.loading = false
+            this.multasEmitidas = this.EntradaMultasEmitidas.length.toString()
+            console.log(this.EntradaMultasEmitidas.length.toString())
+            })
+        },
+        GetPagosEmitidos(){
+            this.loading = true
+            axios.get("https://localhost:44311/Transito/GetPagosEmitidos")
+            .then(response=>{
+            this.EntradaSolicitudDePagosEmitidos = response.data;
+            })
+            .catch(err =>{
+            alert(err.data)
+            })
+            .finally(data =>{
+            this.loading = false
+            this.solicitudesDePago = this.EntradaSolicitudDePagosEmitidos.length.toString()
+            console.log(this.EntradaSolicitudDePagosEmitidos.length.toString())
+            })
+        }
 
     }
 }
