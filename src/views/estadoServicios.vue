@@ -69,55 +69,134 @@ export default{
     },
     data() {
         return {
-            servicioReconocimiento: true,
-            servicioPagos: true,
-            servicioMultas: true,
+            servicioReconocimiento: "",
+            servicioPagos: "",
+            servicioMultas: "",
             loading: false
         };
     },
-    /*
-    mounted() {
-        this.getPrivilegies();
+    mounted(){
+        this.getValues();
     },
-    */
     methods: {
         shutdownRecognizeService(){
             this.loading = true
-            this.servicioReconocimiento = false
+            axios.put("https://localhost:44311/Servicios/PutApagarServicioReconocimiento")
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Servicio de reconocimiento apagado');
+                    this.servicioReconocimiento = false
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
             this.loading = false
         },
         startRecognizeService(){
             this.loading = true
-            this.servicioReconocimiento = true
+            axios.put("https://localhost:44311/Servicios/PutEncenderServicioReconocimiento")
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Servicio de reconocimiento encendido');
+                    this.servicioReconocimiento = true
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
             this.loading = false
         },
         shutdownPaymentService(){
             this.loading = true
-            this.servicioPagos = false
+            axios.put("https://localhost:44311/Servicios/PutApagarServicioPagos")
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Servicio de pagos apagado');
+                    this.servicioPagos = false
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
             this.loading = false
         },
         startPaymentService(){
             this.loading = true
-            this.servicioPagos = true
+            axios.put("https://localhost:44311/Servicios/PutEncenderServicioPagos")
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Servicio de pagos encendido');
+                    this.servicioPagos = true
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
             this.loading = false
         },
         shutdownFinesService(){
             this.loading = true,
-            this.servicioMultas = false,
+            axios.put("https://localhost:44311/Servicios/PutApagarServicioMulta")
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Servicio de Multas Apagado');
+                    this.servicioMultas = false
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
             this.loading = false
         },
         startFinesService(){
             this.loading = true,
-            this.servicioMultas = true,
+            axios.put("https://localhost:44311/Servicios/PutEncenderServicioMulta")
+            .then(response=> {
+                if(response.status==200) {
+                    alert('Servicio de Multas encendido');
+                    this.servicioMultas = true
+                }
+            })
+            .catch(err =>{
+                alert(err.Message)
+            })
+            .finally(data =>{
+                this.loading = false
+            })
             this.loading = false
-        }
-        /*
-        getPrivilegies(){
+        },
+        getValues(){
             this.loading = true
-            axios.get("https://localhost:44398/Permission/GetAll")
+            axios.get("https://localhost:44311/Transito/GetAllMontosDeVehiculosYMulta")
             .then(response=>{
-            this.entradasJSON = response.data.filter((privilege) => {
-                return privilege.Estado != false
+            response.data.forEach((values) => {
+                switch(values.nombre_servicio){
+                    case "Multa":
+                        this.servicioMultas = values.encendido
+                        break;
+                    case "Reconocimiento":
+                        this.servicioReconocimiento = values.encendido
+                        break;
+                    case "Pago":
+                        this.servicioPagos = values.encendido
+                        break;
+                }
             });
             })
             .catch(err =>{
@@ -126,23 +205,7 @@ export default{
             .finally(data =>{
             this.loading = false
             })
-        },
-        CreatePrivilege(){
-            this.loading = true
-            axios.post("https://localhost:44398/Permission/Add", this.newPrivilege)
-            .then(response=> {
-                if(response.status==200) {
-                alert('El nuevo privilegio fue ingresado correctamente');
-                }
-            })
-            .catch(err =>{
-                alert(err.data)
-            })
-            .finally(data =>{
-            this.loading = false
-            })
         }
-        */
     }
 }
 </script>
