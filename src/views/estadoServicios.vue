@@ -183,18 +183,21 @@ export default{
         },
         getValues(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetAllMontosDeVehiculosYMulta")
+            axios.get("https://localhost:44311/Servicios/GetEstadoServicios")
             .then(response=>{
             response.data.forEach((values) => {
                 switch(values.nombre_servicio){
                     case "Multa":
                         this.servicioMultas = values.encendido
+                        console.log(this.servicioMultas.toString())
                         break;
                     case "Reconocimiento":
                         this.servicioReconocimiento = values.encendido
+                        console.log(this.servicioReconocimiento.toString())
                         break;
                     case "Pago":
                         this.servicioPagos = values.encendido
+                        console.log(this.servicioPagos.toString())
                         break;
                 }
             });
