@@ -81,7 +81,7 @@ export default{
     methods: {
         shutdownRecognizeService(){
             this.loading = true
-            axios.put("https://localhost:44311/Servicios/PutApagarServicioReconocimiento")
+            axios.put("https://localhost:44322/Servicios/PutApagarServicioReconocimiento")
             .then(response=> {
                 if(response.status==200) {
                     alert('Servicio de reconocimiento apagado');
@@ -98,7 +98,7 @@ export default{
         },
         startRecognizeService(){
             this.loading = true
-            axios.put("https://localhost:44311/Servicios/PutEncenderServicioReconocimiento")
+            axios.put("https://localhost:44322/Servicios/PutEncenderServicioReconocimiento")
             .then(response=> {
                 if(response.status==200) {
                     alert('Servicio de reconocimiento encendido');
@@ -115,7 +115,7 @@ export default{
         },
         shutdownPaymentService(){
             this.loading = true
-            axios.put("https://localhost:44311/Servicios/PutApagarServicioPagos")
+            axios.put("https://localhost:44322/Servicios/PutApagarServicioPagos")
             .then(response=> {
                 if(response.status==200) {
                     alert('Servicio de pagos apagado');
@@ -132,7 +132,7 @@ export default{
         },
         startPaymentService(){
             this.loading = true
-            axios.put("https://localhost:44311/Servicios/PutEncenderServicioPagos")
+            axios.put("https://localhost:44322/Servicios/PutEncenderServicioPagos")
             .then(response=> {
                 if(response.status==200) {
                     alert('Servicio de pagos encendido');
@@ -149,7 +149,7 @@ export default{
         },
         shutdownFinesService(){
             this.loading = true,
-            axios.put("https://localhost:44311/Servicios/PutApagarServicioMulta")
+            axios.put("https://localhost:44322/Servicios/PutApagarServicioMulta")
             .then(response=> {
                 if(response.status==200) {
                     alert('Servicio de Multas Apagado');
@@ -166,7 +166,7 @@ export default{
         },
         startFinesService(){
             this.loading = true,
-            axios.put("https://localhost:44311/Servicios/PutEncenderServicioMulta")
+            axios.put("https://localhost:44322/Servicios/PutEncenderServicioMulta")
             .then(response=> {
                 if(response.status==200) {
                     alert('Servicio de Multas encendido');
@@ -183,7 +183,7 @@ export default{
         },
         getValues(){
             this.loading = true
-            axios.get("https://localhost:44311/Servicios/GetEstadoServicios")
+            axios.get("https://localhost:44322/Servicios/GetEstadoServicios")
             .then(response=>{
             response.data.forEach((values) => {
                 switch(values.nombre_servicio){

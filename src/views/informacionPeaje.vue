@@ -72,7 +72,7 @@ export default{
     methods: {
         GetTransitoTotal(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetTransitoTotal")
+            axios.get("https://localhost:44322/Transito/GetTransitoTotal")
             .then(response=>{
             this.EntradaTransitoTotal = response.data;
             })
@@ -87,7 +87,7 @@ export default{
         },
         GetPatentesReconocidas(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetCantidadVehiculosReconocidos")
+            axios.get("https://localhost:44322/Transito/GetCantidadVehiculosReconocidos")
             .then(response=>{
             this.EntradaPatentesReconocidas = response.data;
             })
@@ -102,7 +102,7 @@ export default{
         },
         GetPatentesNoReconocidas(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetCantidadVehiculosNoReconocidos")
+            axios.get("https://localhost:44322/Transito/GetCantidadVehiculosNoReconocidos")
             .then(response=>{
             this.EntradaPatentesNoReconocidas = response.data;
             })
@@ -117,7 +117,7 @@ export default{
         },
         GetTotalFacturado(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetTotalFacturado")
+            axios.get("https://localhost:44322/Transito/GetTotalFacturado")
             .then(response=>{
             this.EntradaTotalFacturado = response.data;
             })
@@ -132,7 +132,7 @@ export default{
         },
         GetMultasEmitidas(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetMultasEmitidas")
+            axios.get("https://localhost:44322/Transito/GetMultasEmitidas")
             .then(response=>{
             this.EntradaMultasEmitidas = response.data;
             })
@@ -147,7 +147,7 @@ export default{
         },
         GetPagosEmitidos(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetPagosEmitidos")
+            axios.get("https://localhost:44322/Transito/GetPagosEmitidos")
             .then(response=>{
             this.EntradaSolicitudDePagosEmitidos = response.data;
             })

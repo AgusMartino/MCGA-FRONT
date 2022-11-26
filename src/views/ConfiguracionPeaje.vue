@@ -110,7 +110,7 @@ export default{
         },
         applyPaymentCamion(){
             this.loading = true
-            axios.put("https://localhost:44311/Transito/PutValorTipoVehiculo?idTipoVehiculo=9407c5f8-5984-4777-aa6c-7b413b7879c3&nuevoValor=" + this.Camion.value)
+            axios.put("https://localhost:44322/Transito/PutValorTipoVehiculo?idTipoVehiculo=9407c5f8-5984-4777-aa6c-7b413b7879c3&nuevoValor=" + this.Camion.value)
             .then(response=> {
                 if(response.status==200) {
                     alert('Monto de Camion Modificado!');
@@ -125,7 +125,7 @@ export default{
         },
         applyPaymentAuto(){
             this.loading = true
-            axios.put("https://localhost:44311/Transito/PutValorTipoVehiculo?idTipoVehiculo=ffe7fec7-5539-40b9-9926-d868b22159d7&nuevoValor=" + this.Auto.value)
+            axios.put("https://localhost:44322/Transito/PutValorTipoVehiculo?idTipoVehiculo=ffe7fec7-5539-40b9-9926-d868b22159d7&nuevoValor=" + this.Auto.value)
             .then(response=> {
                 if(response.status==200) {
                     alert('Monto de Auto Modificado!');
@@ -140,7 +140,7 @@ export default{
         },
         applyPaymentMoto(){
             this.loading = true
-            axios.put("https://localhost:44311/Transito/PutValorTipoVehiculo?idTipoVehiculo=54f13da9-b8fe-4fff-919f-d295ec4d55f5&nuevoValor=" + this.Moto.value)
+            axios.put("https://localhost:44322/Transito/PutValorTipoVehiculo?idTipoVehiculo=54f13da9-b8fe-4fff-919f-d295ec4d55f5&nuevoValor=" + this.Moto.value)
             .then(response=> {
                 if(response.status==200) {
                     alert('Monto de Moto Modificado!');
@@ -155,7 +155,7 @@ export default{
         },
         applyFineMulta(){
             this.loading = true
-            axios.put("https://localhost:44311/Transito/PutValorMulta?nuevoValor=" + this.Multa.value)
+            axios.put("https://localhost:44322/Transito/PutValorMulta?nuevoValor=" + this.Multa.value)
             .then(response=> {
                 if(response.status==200) {
                     alert('Monto de Multa Modificado!');
@@ -175,7 +175,7 @@ export default{
         },
         getValues(){
             this.loading = true
-            axios.get("https://localhost:44311/Transito/GetAllMontosDeVehiculosYMulta")
+            axios.get("https://localhost:44322/Transito/GetAllMontosDeVehiculosYMulta")
             .then(response=>{
             response.data.forEach((values) => {
                 switch(values.tipo){
