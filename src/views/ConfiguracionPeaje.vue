@@ -72,7 +72,6 @@ export default{
     },
     data() {
         return {
-
             Moto: {
                 id: '54f13da9-b8fe-4fff-919f-d295ec4d55f5',
                 key: 'MOTO',
